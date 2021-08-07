@@ -30,15 +30,23 @@ export function Home() {
 
   async function loadData() {
     const dataKey = '@savepass:logins';
-    // Get asyncStorage data, use setSearchListData and setData
+    console.log('loaded')
+    const jsonValue = await AsyncStorage.getItem(dataKey)
+    let loginsStored = jsonValue != null ? JSON.parse(jsonValue) : [];
+    setData(loginsStored);
   }
 
   function handleFilterLoginData() {
-    // Filter results inside data, save with setSearchListData
+      const result = data.filter(function(element:LoginDataProps){
+        if(element.service_name === searchText){
+          return element
+        }
+      })
+      setSearchListData(result)
   }
 
   function handleChangeInputText(text: string) {
-    // Update searchText value
+    setSearchText(text)
   }
 
   useFocusEffect(useCallback(() => {
