@@ -36,8 +36,7 @@ export function RegisterLoginData() {
     handleSubmit,
     formState: {
       errors
-    },
-    reset
+    }
   } = useForm({
     resolver: yupResolver(schema)
   });
@@ -49,14 +48,11 @@ export function RegisterLoginData() {
     }
 
     const dataKey = '@savepass:logins';
-
     let jsonValue = await AsyncStorage.getItem(dataKey)
     let loginsStored = jsonValue != null ? JSON.parse(jsonValue) : [];
     jsonValue = JSON.stringify([...loginsStored, newLoginData])
     await AsyncStorage.setItem(dataKey, jsonValue)
-    jsonValue = await AsyncStorage.getItem(dataKey)
-    console.log(jsonValue)
-    navigate.goBack();
+    navigate('Home')
   }
 
   return (
